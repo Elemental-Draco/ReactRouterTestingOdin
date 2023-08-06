@@ -1,23 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import HomePage from "./components/HomePage";
+import Shopping from "./components/Shopping";
+import Cart from "./components/Cart";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello from the main page of the app!</h1>
-      <p>Here are some examples of links to other pages</p>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Profile page</Link>
-          </li>
-          <li>
-            <Link to="example" className="bg-red-700">
-              Example
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <>
+      <Header />
+      <div className="mt-24">
+        <Routes>
+          <Route index element={<HomePage />}></Route>
+          <Route path="shopping" element={<Shopping />}></Route>
+          <Route path="cart" element={<Cart />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </div>
+    </>
   );
 };
 
