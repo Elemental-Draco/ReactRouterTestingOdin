@@ -1,9 +1,24 @@
 import React from "react";
+import ItemCard from "./ItemCard";
 
 export default function Shopping(props) {
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   const [products, setProducts] = React.useState([]);
+
+  function makeItems(items = []) {
+    return items.map((prod) => {
+      return (
+        <ItemCard
+          key={prod.id}
+          id={prod.id}
+          itemName={prod.title}
+          price={prod.price}
+          imgUrl={prod.image}
+        />
+      );
+    });
+  }
 
   React.useEffect(() => {
     function getProducts() {
@@ -36,6 +51,7 @@ export default function Shopping(props) {
           <li>List of stuff</li>
           <li>List of things</li>
         </ul>
+        <div className="grid gap-4 grid-auto-fit">{makeItems(products)}</div>
       </div>
     </>
   );
