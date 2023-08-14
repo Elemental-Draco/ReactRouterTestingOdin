@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
 
 export default function ItemCard(props) {
-  function handleClick() {
-    const input = document.getElementById(props.id);
-    // Push items to the cart, depending on how many have been clicked. then i want to reset the inputs value to 1.
+  function addToCart() {
+    let currentItem = props.products.findIndex((id) => id.id === props.id);
+    let input = document.getElementById(props.id);
+
+    let newProd = [...props.products];
+    newProd[currentItem].count += +input.value;
     input.value = 1;
+
+    props.setProducts(newProd);
   }
   return (
     <div className="flex w-[300px] flex-col bg-blue-900 p-2 items-center h-[500px] ">
@@ -19,7 +24,7 @@ export default function ItemCard(props) {
           min={1}
           className="w-14"
         />
-        <button>Add To Cart</button>
+        <button onClick={addToCart}>Add To Cart</button>
       </div>
     </div>
   );

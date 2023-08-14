@@ -1,10 +1,9 @@
 import React from "react";
 import ItemCard from "./ItemCard";
 
-export default function Shopping(props) {
+export default function Shopping({ setProducts, products }) {
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(true);
-  const [products, setProducts] = React.useState([]);
 
   function makeItems(items = []) {
     return items.map((prod) => {
@@ -15,6 +14,8 @@ export default function Shopping(props) {
           itemName={prod.title}
           price={prod.price}
           imgUrl={prod.image}
+          products={products}
+          setProducts={setProducts}
         />
       );
     });
@@ -26,8 +27,7 @@ export default function Shopping(props) {
       fetch("https://fakestoreapi.com/products/category/jewelery")
         .then((res) => res.json())
         .then((fetchedProducts) => {
-          setProducts(fetchedProducts);
-          console.log(fetchedProducts);
+          setProducts(fetchedProducts.map((prod) => ({ ...prod, count: 0 })));
         })
         .catch((error) => {
           setError(error);
